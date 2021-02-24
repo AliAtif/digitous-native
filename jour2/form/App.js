@@ -1,83 +1,51 @@
-import { StatusBar } from 'expo-status-bar';
-import React, { useState } from 'react';
-import { StyleSheet, Text, View, TextInput, Dimensions, Pressable} from 'react-native';
+import { StatusBar } from "expo-status-bar";
+import React, { useState } from "react";
+import { StyleSheet, Text, View, TextInput, Pressable } from "react-native";
+
+import FormInput from "./components/FormInput";
 
 export default function App() {
-
-  const [emailInput, setEmailInput] = useState(styles.loginInput)
-  const [passwordInput, setPasswordInput] = useState(styles.loginInput)
-
-  const validInput= (text) => {
-    if (text.length >= 6) {
-      setEmailInput(styles.loginInputValid)
-    } else {
-      setEmailInput(styles.loginInput)
-    }
-  }
-
-  const validPasswordInput = (text) => {
-    if (text.length >= 6) {
-      setPasswordInput(styles.loginInputValid)
-    } else {
-      setPasswordInput(styles.loginInput)
-    }
-  }
+  const [userLogin, setUserLogin] = useState(false);
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Login</Text>
-      <TextInput style={emailInput} placeholder=" Votre e-mail" onChangeText={(email) => {validInput(email)}} keyboardType='email-address'></TextInput>
-      <TextInput style={passwordInput} placeholder="Votre password" onChangeText={(password) => {validPasswordInput(password)}} secureTextEntry={true}></TextInput>
-      <Pressable style={styles.button}>
-        <Text style={{color: 'white', fontSize: 25}}>Connection</Text>
-      </Pressable>
+      {userLogin ? (
+        <Text style={{color: "white"}}>Conecté</Text>
+      ) : (<View>
+        <Text>Loggin</Text>
+        <FormInput
+          placeholder={"email"}
+          keyboardType={"email-address"}
+        ></FormInput>
+        <FormInput
+          placeholder={"password"}
+          secureTextEntry={true}
+        ></FormInput>
+        <Pressable style={styles.loginButton} onPress={() => setUserLogin(true)}>
+          <Text style={{ color: "white" }}>Login</Text>
+        </Pressable>
+      </View>
+      )}
       <StatusBar style="auto" />
     </View>
   );
 }
-
 const styles = StyleSheet.create({
+  // #130F40
+  // #30336B
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    paddingTop: 100,
+    backgroundColor: "#130F40",
+    alignItems: "center",
+    justifyContent: "center",
   },
-  title: {
-    fontWeight: 'bold',
-    fontSize: 40,
-    color: 'black',
-    marginBottom: 25
-  },
-  loginInput: {
-    marginBottom: 15,
-    height: 50,
-    width: 400,
-    padding: 10,
-    backgroundColor: '#fff',
-    borderWidth: 2,
-    borderColor: 'red',
-    borderRadius: 10,
-    color: 'black',
-    fontSize: 18
-  },
-  loginInputValid: {
-    marginBottom: 15,
-    height: 50,
-    width: 400,
-    padding: 10,
-    borderColor: 'green',
-    borderWidth: 2,
-    borderRadius: 10,
-    fontSize: 22
-  },
-  button: {
+  loginButton: {
     marginTop: 20,
-    backgroundColor: '#1f98de',
+    backgroundColor: "#30336b",
     width: 400,
     height: 50,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     borderRadius: 10,
-  }
+  },
 });
