@@ -12,7 +12,7 @@ export default function App() {
       {userLogin ? (
         <Text style={{color: "white"}}>Conecté</Text>
       ) : (<View>
-        <Text>Loggin</Text>
+        <Text>Login</Text>
         <FormInput
           placeholder={"email"}
           keyboardType={"email-address"}
